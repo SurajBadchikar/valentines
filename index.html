@@ -75,7 +75,7 @@
       margin-top: 10px;
     }
 
-    /* Floating Hearts */
+    /* Hearts */
     .heart {
       position: absolute;
       bottom: -20px;
@@ -103,27 +103,25 @@
 
     <!-- Question -->
     <div id="question">
-      <h1>Will You Be My Valentine? 💘</h1>
+      <h1>Will You Be My Valentine? 💘🥰</h1>
 
-      <button class="btn" onclick="showLove()">Yes ❤️</button>
+      <button class="btn" onclick="showLove()">Yes ❤️😍</button>
 
       <button class="btn no-btn" id="noBtn">
-        No 💔
+        No 💔😢
       </button>
     </div>
 
     <!-- Result -->
     <div class="result" id="result">
 
-      <h1>I Love You Forever 💞</h1>
+      <h1>I Love You Forever 💞😘</h1>
 
-      <!-- Replace image -->
       <img src="your-photo.jpg" alt="Us Together">
 
       <div class="quote">
-        “No matter what we go through,  
-        I hope we stay together forever.  
-        Thanks for coming into my life. ❤️”
+        “You are my today, my tomorrow, and my forever 💕🥺  
+        Thank you for being mine ❤️🌍”
       </div>
 
     </div>
@@ -152,39 +150,45 @@
       noBtn.style.top = y + "px";
     }
 
-    // Run away
+    // Run away always
     noBtn.addEventListener("mouseenter", moveNo);
     noBtn.addEventListener("touchstart", moveNo);
+    noBtn.addEventListener("click", moveNo); // even accidental click
 
-    // After 1 min → allow click
+    // After 1 min → allow click but still popup
     setTimeout(() => {
 
       canClickNo = true;
 
       noBtn.style.background = "#ff4b6e";
-      noBtn.innerText = "No 😢 (Click Me)";
+      noBtn.innerText = "No 😢💔 (Really?)";
 
     }, 60000);
 
 
-    // Click NO
-    noBtn.addEventListener("click", () => {
+    // Handle NO click
+    noBtn.addEventListener("click", (e) => {
 
-      if (!canClickNo) return;
+      e.preventDefault();
 
-      const sure = confirm("Are you sure? 😳💔");
+      const sure = confirm(
+        "😳 Are you REALLY sure?\n\n" +
+        "💔 My heart will break...\n" +
+        "🥺 Think again please...\n\n" +
+        "Press OK if you still want NO 😢"
+      );
 
       if (sure) {
 
-        alert("How dare you click YES 😤❤️\nTry again!");
+        alert("😤 HOW DARE YOU 😭❤️\nGo back and choose YES 😍");
 
         location.reload();
-
       }
+
     });
 
 
-    // YES Button
+    // YES
     function showLove() {
 
       document.getElementById("question").style.display = "none";
