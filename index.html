@@ -19,15 +19,23 @@ body {
   overflow: hidden;
 }
 
+/* Container */
+
 .container {
   background: white;
   padding: 40px;
   border-radius: 20px;
   text-align: center;
   width: 90%;
-  max-width: 420px;
+  max-width: 400px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.2);
   position: relative;
+  transition: 0.5s ease;
+}
+
+/* Expand container */
+.container.expand {
+  max-width: 650px;
 }
 
 /* Buttons */
@@ -68,7 +76,8 @@ body {
 
 .checklist {
   text-align: left;
-  margin: 20px 0;
+  margin: 20px auto;
+  max-width: 450px;
   font-size: 16px;
 }
 
@@ -80,7 +89,7 @@ body {
 
 .photo {
   width: 100%;
-  max-width: 220px;
+  max-width: 230px;
   border-radius: 15px;
   margin: 15px 0;
   box-shadow: 0 5px 15px rgba(0,0,0,0.3);
@@ -114,6 +123,7 @@ body {
 
 <div class="container" id="box">
 
+
 <!-- QUESTION -->
 <div id="question" class="section active">
 
@@ -128,12 +138,12 @@ body {
 </div>
 
 
-<!-- SPECIAL MESSAGE -->
+<!-- SPECIAL -->
 <div id="special" class="section">
 
   <h2 id="noMsg"></h2>
 
-  <p><b>Before saying Yes… think about this 😌❤️</b></p>
+  <p><b>Before saying YES… think again 😌❤️</b></p>
 
   <ul class="checklist">
     <li>✅ Do you want to miss this?</li>
@@ -144,12 +154,13 @@ body {
     <li>✅ Never disappoints you 💯</li>
   </ul>
 
-  <!-- Replace with her photo -->
+  <!-- Replace with her image -->
   <img src="her.jpg" class="photo" alt="Her Photo">
 
-  <p>
-    I don’t want to lose this hot 🔥, beautiful 😍  
-    and smart 🧠 girl 💖  
+  <p style="font-size:18px; margin-top:15px;">
+    💖 Because I don’t want to lose this  
+    <b>hot 🔥, beautiful 😍 and smart 🧠 girl</b>  
+    who means everything to me ❤️🥺
   </p>
 
   <p><i>Wait 30 seconds… ⏳💞</i></p>
@@ -157,12 +168,19 @@ body {
 </div>
 
 
-<!-- FINAL RESULT -->
+<!-- FINAL -->
 <div id="final" class="section">
 
   <h1>I Love You Forever 💞😘</h1>
 
-  <p>You are my everything ❤️🌍</p>
+  <!-- Same image again -->
+  <img src="her.jpg" class="photo" alt="Her Photo">
+
+  <p style="font-size:17px; margin-top:15px;">
+    “No matter what we go through,  
+    I hope we stay together forever ❤️  
+    You are my world 🌍💖”
+  </p>
 
 </div>
 
@@ -210,6 +228,8 @@ function yesClicked() {
   document.getElementById("question").classList.remove("active");
   document.getElementById("special").classList.add("active");
 
+  box.classList.add("expand"); // expand width
+
   const msg = document.getElementById("noMsg");
 
   if (triedNo) {
@@ -218,7 +238,8 @@ function yesClicked() {
     msg.innerHTML = "🥺 You didn’t even try NO… so sweet 😍❤️";
   }
 
-  // After 30 seconds → final page
+
+  // After 30s → final
   setTimeout(() => {
 
     document.getElementById("special").classList.remove("active");
@@ -230,7 +251,7 @@ function yesClicked() {
 }
 
 
-// Hearts animation
+// Hearts
 function startHearts() {
 
   setInterval(() => {
