@@ -75,7 +75,7 @@
       margin-top: 10px;
     }
 
-    /* Hearts */
+    /* Floating Hearts */
     .heart {
       position: absolute;
       bottom: -20px;
@@ -117,6 +117,7 @@
 
       <h1>I Love You Forever 💞😘</h1>
 
+      <!-- Change image -->
       <img src="your-photo.jpg" alt="Us Together">
 
       <div class="quote">
@@ -138,8 +139,6 @@
     // Move NO button
     function moveNo() {
 
-      if (canClickNo) return;
-
       const maxX = box.clientWidth - noBtn.offsetWidth;
       const maxY = box.clientHeight - noBtn.offsetHeight;
 
@@ -150,24 +149,37 @@
       noBtn.style.top = y + "px";
     }
 
-    // Run away always
-    noBtn.addEventListener("mouseenter", moveNo);
-    noBtn.addEventListener("touchstart", moveNo);
-    noBtn.addEventListener("click", moveNo); // even accidental click
+    // Escape before 1 min
+    function escapeNo() {
+      if (!canClickNo) {
+        moveNo();
+      }
+    }
 
-    // After 1 min → allow click but still popup
+    // Hover / touch
+    noBtn.addEventListener("mouseenter", escapeNo);
+    noBtn.addEventListener("touchstart", escapeNo);
+
+
+    // Enable click after 1 minute
     setTimeout(() => {
 
       canClickNo = true;
 
       noBtn.style.background = "#ff4b6e";
-      noBtn.innerText = "No 😢💔 (Really?)";
+      noBtn.innerText = "No 😢💔 (Click Me)";
 
     }, 60000);
 
 
-    // Handle NO click
+    // Click handler
     noBtn.addEventListener("click", (e) => {
+
+      // If early → escape
+      if (!canClickNo) {
+        moveNo();
+        return;
+      }
 
       e.preventDefault();
 
@@ -188,7 +200,7 @@
     });
 
 
-    // YES
+    // YES button
     function showLove() {
 
       document.getElementById("question").style.display = "none";
@@ -198,7 +210,7 @@
     }
 
 
-    // Hearts
+    // Hearts animation
     function createHearts() {
 
       setInterval(() => {
