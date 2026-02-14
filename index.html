@@ -1,183 +1,258 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Be My Valentine ❤️</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be My Valentine ❤️</title>
 
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-      font-family: 'Poppins', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-    }
+<style>
 
-    .container {
-      background: white;
-      padding: 40px;
-      border-radius: 20px;
-      text-align: center;
-      width: 90%;
-      max-width: 400px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      position: relative;
-    }
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
 
-    h1 {
-      color: #ff4b6e;
-      margin-bottom: 25px;
-    }
+.container {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  width: 90%;
+  max-width: 420px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  position: relative;
+}
 
-    .btn {
-      background: #ff4b6e;
-      color: white;
-      border: none;
-      padding: 12px 25px;
-      font-size: 18px;
-      border-radius: 30px;
-      cursor: pointer;
-      margin: 10px;
-      transition: 0.3s;
-    }
+/* Buttons */
 
-    .btn:hover {
-      transform: scale(1.1);
-    }
+.btn {
+  background: #ff4b6e;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  font-size: 18px;
+  border-radius: 30px;
+  cursor: pointer;
+  margin: 10px;
+  transition: 0.3s;
+}
 
-    .no-btn {
-      position: absolute;
-      background: #555;
-      cursor: not-allowed;
-    }
+.btn:hover {
+  transform: scale(1.1);
+}
 
-    .result {
-      display: none;
-    }
+.no-btn {
+  position: absolute;
+  background: #555;
+  cursor: not-allowed;
+}
 
-    /* Hearts */
-    .heart {
-      position: absolute;
-      bottom: -20px;
-      font-size: 20px;
-      color: rgba(255, 0, 90, 0.6);
-      animation: floatUp 6s linear infinite;
-    }
+/* Sections */
 
-    @keyframes floatUp {
-      from {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-      }
-      to {
-        transform: translateY(-100vh) scale(1.5);
-        opacity: 0;
-      }
-    }
-  </style>
+.section {
+  display: none;
+}
+
+.section.active {
+  display: block;
+}
+
+/* Checklist */
+
+.checklist {
+  text-align: left;
+  margin: 20px 0;
+  font-size: 16px;
+}
+
+.checklist li {
+  margin: 10px 0;
+}
+
+/* Image */
+
+.photo {
+  width: 100%;
+  max-width: 220px;
+  border-radius: 15px;
+  margin: 15px 0;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* Hearts */
+
+.heart {
+  position: absolute;
+  bottom: -20px;
+  font-size: 20px;
+  color: rgba(255,0,90,0.6);
+  animation: floatUp 6s linear infinite;
+}
+
+@keyframes floatUp {
+  from {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-100vh) scale(1.5);
+    opacity: 0;
+  }
+}
+
+</style>
 </head>
 
 <body>
 
-  <div class="container" id="box">
+<div class="container" id="box">
 
-    <!-- Question -->
-    <div id="question">
+<!-- QUESTION -->
+<div id="question" class="section active">
 
-      <h1>Will You Be My Valentine? 💘🥰</h1>
+  <h1>Will You Be My Valentine? 💘🥰</h1>
 
-      <button class="btn" onclick="showLove()">Yes ❤️😍</button>
+  <button class="btn" onclick="yesClicked()">Yes ❤️😍</button>
 
-      <button class="btn no-btn" id="noBtn">
-        No 💔😢
-      </button>
+  <button class="btn no-btn" id="noBtn">
+    No 💔😢
+  </button>
 
-    </div>
-
-
-    <!-- Result -->
-    <div class="result" id="result">
-
-      <h1>Yayyy! 😍💞</h1>
-
-      <p>I Love You So Much ❤️😘</p>
-
-    </div>
-
-  </div>
+</div>
 
 
-  <script>
+<!-- SPECIAL MESSAGE -->
+<div id="special" class="section">
 
-    const noBtn = document.getElementById("noBtn");
-    const box = document.getElementById("box");
+  <h2 id="noMsg"></h2>
 
+  <p><b>Before saying Yes… think about this 😌❤️</b></p>
 
-    // Move button randomly
-    function moveNo() {
+  <ul class="checklist">
+    <li>✅ Do you want to miss this?</li>
+    <li>✅ Smart 🧠</li>
+    <li>✅ Studying 📚</li>
+    <li>✅ Plays sports ⚽🏏</li>
+    <li>✅ Loves you loads ❤️</li>
+    <li>✅ Never disappoints you 💯</li>
+  </ul>
 
-      const maxX = box.clientWidth - noBtn.offsetWidth;
-      const maxY = box.clientHeight - noBtn.offsetHeight;
+  <!-- Replace with her photo -->
+  <img src="her.jpg" class="photo" alt="Her Photo">
 
-      const x = Math.random() * maxX;
-      const y = Math.random() * maxY;
+  <p>
+    I don’t want to lose this hot 🔥, beautiful 😍  
+    and smart 🧠 girl 💖  
+  </p>
 
-      noBtn.style.left = x + "px";
-      noBtn.style.top = y + "px";
-    }
+  <p><i>Wait 30 seconds… ⏳💞</i></p>
 
-
-    // Always escape
-    noBtn.addEventListener("mouseenter", moveNo);
-    noBtn.addEventListener("mousedown", moveNo);
-    noBtn.addEventListener("touchstart", moveNo);
-
-
-    // Block clicking forever
-    noBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      moveNo();
-    });
+</div>
 
 
-    // YES button
-    function showLove() {
+<!-- FINAL RESULT -->
+<div id="final" class="section">
 
-      document.getElementById("question").style.display = "none";
-      document.getElementById("result").style.display = "block";
+  <h1>I Love You Forever 💞😘</h1>
 
-      createHearts();
-    }
+  <p>You are my everything ❤️🌍</p>
+
+</div>
+
+</div>
 
 
-    // Hearts animation
-    function createHearts() {
+<script>
 
-      setInterval(() => {
+const noBtn = document.getElementById("noBtn");
+const box = document.getElementById("box");
 
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.innerHTML = "❤️";
+let triedNo = false;
 
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.fontSize = (20 + Math.random() * 20) + "px";
 
-        document.body.appendChild(heart);
+// Move NO button
+function moveNo() {
 
-        setTimeout(() => {
-          heart.remove();
-        }, 6000);
+  triedNo = true;
 
-      }, 300);
+  const maxX = box.clientWidth - noBtn.offsetWidth;
+  const maxY = box.clientHeight - noBtn.offsetHeight;
 
-    }
+  const x = Math.random() * maxX;
+  const y = Math.random() * maxY;
 
-  </script>
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+}
+
+
+// Always escape
+noBtn.addEventListener("mouseenter", moveNo);
+noBtn.addEventListener("mousedown", moveNo);
+noBtn.addEventListener("touchstart", moveNo);
+
+noBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  moveNo();
+});
+
+
+// YES clicked
+function yesClicked() {
+
+  document.getElementById("question").classList.remove("active");
+  document.getElementById("special").classList.add("active");
+
+  const msg = document.getElementById("noMsg");
+
+  if (triedNo) {
+    msg.innerHTML = "😏 Pehele NO try kiya na? Are you sure? 😂❤️";
+  } else {
+    msg.innerHTML = "🥺 You didn’t even try NO… so sweet 😍❤️";
+  }
+
+  // After 30 seconds → final page
+  setTimeout(() => {
+
+    document.getElementById("special").classList.remove("active");
+    document.getElementById("final").classList.add("active");
+
+    startHearts();
+
+  }, 30000);
+}
+
+
+// Hearts animation
+function startHearts() {
+
+  setInterval(() => {
+
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤️";
+
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (20 + Math.random() * 20) + "px";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 6000);
+
+  }, 300);
+
+}
+
+</script>
 
 </body>
 </html>
