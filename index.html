@@ -27,7 +27,6 @@
       width: 90%;
       box-shadow: 0 10px 30px rgba(0,0,0,0.2);
       position: relative;
-      z-index: 2;
     }
 
     h1 {
@@ -39,16 +38,22 @@
       background: #ff4b6e;
       color: white;
       border: none;
-      padding: 12px 30px;
+      padding: 12px 25px;
       font-size: 18px;
       border-radius: 30px;
       cursor: pointer;
       transition: 0.3s;
+      margin: 10px;
     }
 
     .btn:hover {
       transform: scale(1.1);
       background: #ff2f5b;
+    }
+
+    .no-btn {
+      position: absolute;
+      background: #555;
     }
 
     .result {
@@ -96,25 +101,29 @@
 
   <div class="container" id="mainBox">
 
-    <!-- Question Section -->
+    <!-- Question -->
     <div id="question">
       <h1>Will You Be My Valentine? 💘</h1>
+
       <button class="btn" onclick="showLove()">Yes ❤️</button>
+
+      <button class="btn no-btn" id="noBtn">
+        No 💔
+      </button>
     </div>
 
-    <!-- Result Section -->
+    <!-- Result -->
     <div class="result" id="result">
 
       <h1>I Love You Forever 💞</h1>
 
-      <!-- Replace this with your image -->
+      <!-- Replace image -->
       <img src="your-photo.jpg" alt="Us Together">
 
       <div class="quote">
         “No matter what we go through,  
-        I hope we stay together for the rest of our lives.  
-        Thanks for coming into my life,  
-        you really set things straight for me.” ❤️
+        I hope we stay together forever.  
+        Thanks for coming into my life. ❤️”
       </div>
 
     </div>
@@ -122,14 +131,74 @@
   </div>
 
   <script>
+
+    const noBtn = document.getElementById("noBtn");
+    const box = document.getElementById("mainBox");
+
+    let canClickNo = false;
+
+    // Move NO button
+    function moveNo() {
+
+      if (canClickNo) return;
+
+      const maxX = box.clientWidth - noBtn.offsetWidth;
+      const maxY = box.clientHeight - noBtn.offsetHeight;
+
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    }
+
+    // Run away
+    noBtn.addEventListener("mouseenter", moveNo);
+    noBtn.addEventListener("touchstart", moveNo);
+
+    // After 1 min → allow click
+    setTimeout(() => {
+
+      canClickNo = true;
+
+      noBtn.style.background = "#ff4b6e";
+      noBtn.innerText = "No 😢 (Click Me)";
+
+    }, 60000);
+
+
+    // Click NO
+    noBtn.addEventListener("click", () => {
+
+      if (!canClickNo) return;
+
+      const sure = confirm("Are you sure? 😳💔");
+
+      if (sure) {
+
+        alert("How dare you click YES 😤❤️\nTry again!");
+
+        location.reload();
+
+      }
+    });
+
+
+    // YES Button
     function showLove() {
+
       document.getElementById("question").style.display = "none";
       document.getElementById("result").style.display = "block";
+
       createHearts();
     }
 
+
+    // Hearts
     function createHearts() {
+
       setInterval(() => {
+
         const heart = document.createElement("div");
         heart.classList.add("heart");
         heart.innerHTML = "❤️";
@@ -145,7 +214,9 @@
         }, 7000);
 
       }, 300);
+
     }
+
   </script>
 
 </body>
