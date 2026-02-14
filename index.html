@@ -53,6 +53,31 @@
     .no-btn {
       position: absolute;
       background: #555;
+      cursor: not-allowed;
+    }
+
+    .result {
+      display: none;
+    }
+
+    /* Hearts */
+    .heart {
+      position: absolute;
+      bottom: -20px;
+      font-size: 20px;
+      color: rgba(255, 0, 90, 0.6);
+      animation: floatUp 6s linear infinite;
+    }
+
+    @keyframes floatUp {
+      from {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      to {
+        transform: translateY(-100vh) scale(1.5);
+        opacity: 0;
+      }
     }
   </style>
 </head>
@@ -61,11 +86,28 @@
 
   <div class="container" id="box">
 
-    <h1>Will You Be My Valentine? 💘🥰</h1>
+    <!-- Question -->
+    <div id="question">
 
-    <button class="btn" onclick="goYes()">Yes ❤️😍</button>
+      <h1>Will You Be My Valentine? 💘🥰</h1>
 
-    <button class="btn no-btn" id="noBtn">No 💔😢</button>
+      <button class="btn" onclick="showLove()">Yes ❤️😍</button>
+
+      <button class="btn no-btn" id="noBtn">
+        No 💔😢
+      </button>
+
+    </div>
+
+
+    <!-- Result -->
+    <div class="result" id="result">
+
+      <h1>Yayyy! 😍💞</h1>
+
+      <p>I Love You So Much ❤️😘</p>
+
+    </div>
 
   </div>
 
@@ -75,9 +117,8 @@
     const noBtn = document.getElementById("noBtn");
     const box = document.getElementById("box");
 
-    let canClick = false;
 
-
+    // Move button randomly
     function moveNo() {
 
       const maxX = box.clientWidth - noBtn.offsetWidth;
@@ -91,37 +132,49 @@
     }
 
 
-    // Escape
+    // Always escape
     noBtn.addEventListener("mouseenter", moveNo);
+    noBtn.addEventListener("mousedown", moveNo);
     noBtn.addEventListener("touchstart", moveNo);
 
 
-    // Enable after 1 min
-    setTimeout(() => {
-
-      canClick = true;
-
-      noBtn.style.background = "#ff4b6e";
-      noBtn.innerText = "No 😢💔 (Click Me)";
-
-    }, 60000);
-
-
-    // Click No
-    noBtn.addEventListener("click", () => {
-
-      if (!canClick) {
-        moveNo();
-        return;
-      }
-
-      // Go to next page
-      window.location.href = "no.html";
+    // Block clicking forever
+    noBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      moveNo();
     });
 
 
-    function goYes() {
-      alert("Yayyy 😍❤️ I Love Youuu 💞😘");
+    // YES button
+    function showLove() {
+
+      document.getElementById("question").style.display = "none";
+      document.getElementById("result").style.display = "block";
+
+      createHearts();
+    }
+
+
+    // Hearts animation
+    function createHearts() {
+
+      setInterval(() => {
+
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤️";
+
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = (20 + Math.random() * 20) + "px";
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+          heart.remove();
+        }, 6000);
+
+      }, 300);
+
     }
 
   </script>
