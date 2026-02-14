@@ -19,19 +19,19 @@
     }
 
     .container {
-      background: rgba(255,255,255,0.95);
+      background: white;
       padding: 40px;
       border-radius: 20px;
       text-align: center;
-      max-width: 400px;
       width: 90%;
+      max-width: 400px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.2);
       position: relative;
     }
 
     h1 {
       color: #ff4b6e;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
     }
 
     .btn {
@@ -42,101 +42,42 @@
       font-size: 18px;
       border-radius: 30px;
       cursor: pointer;
-      transition: 0.3s;
       margin: 10px;
+      transition: 0.3s;
     }
 
     .btn:hover {
       transform: scale(1.1);
-      background: #ff2f5b;
     }
 
     .no-btn {
       position: absolute;
       background: #555;
     }
-
-    .result {
-      display: none;
-    }
-
-    .result img {
-      width: 100%;
-      max-width: 250px;
-      border-radius: 15px;
-      margin: 20px 0;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    }
-
-    .quote {
-      font-size: 16px;
-      color: #444;
-      line-height: 1.6;
-      margin-top: 10px;
-    }
-
-    /* Floating Hearts */
-    .heart {
-      position: absolute;
-      bottom: -20px;
-      color: rgba(255, 0, 90, 0.6);
-      font-size: 20px;
-      animation: floatUp 6s linear infinite;
-    }
-
-    @keyframes floatUp {
-      from {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-      }
-      to {
-        transform: translateY(-100vh) scale(1.5);
-        opacity: 0;
-      }
-    }
   </style>
 </head>
 
 <body>
 
-  <div class="container" id="mainBox">
+  <div class="container" id="box">
 
-    <!-- Question -->
-    <div id="question">
-      <h1>Will You Be My Valentine? 💘🥰</h1>
+    <h1>Will You Be My Valentine? 💘🥰</h1>
 
-      <button class="btn" onclick="showLove()">Yes ❤️😍</button>
+    <button class="btn" onclick="goYes()">Yes ❤️😍</button>
 
-      <button class="btn no-btn" id="noBtn">
-        No 💔😢
-      </button>
-    </div>
-
-    <!-- Result -->
-    <div class="result" id="result">
-
-      <h1>I Love You Forever 💞😘</h1>
-
-      <!-- Change image -->
-      <img src="your-photo.jpg" alt="Us Together">
-
-      <div class="quote">
-        “You are my today, my tomorrow, and my forever 💕🥺  
-        Thank you for being mine ❤️🌍”
-      </div>
-
-    </div>
+    <button class="btn no-btn" id="noBtn">No 💔😢</button>
 
   </div>
+
 
   <script>
 
     const noBtn = document.getElementById("noBtn");
-    const box = document.getElementById("mainBox");
+    const box = document.getElementById("box");
 
-    let canClickNo = false;
+    let canClick = false;
 
-    // Move NO button
+
     function moveNo() {
 
       const maxX = box.clientWidth - noBtn.offsetWidth;
@@ -149,22 +90,16 @@
       noBtn.style.top = y + "px";
     }
 
-    // Escape before 1 min
-    function escapeNo() {
-      if (!canClickNo) {
-        moveNo();
-      }
-    }
 
-    // Hover / touch
-    noBtn.addEventListener("mouseenter", escapeNo);
-    noBtn.addEventListener("touchstart", escapeNo);
+    // Escape
+    noBtn.addEventListener("mouseenter", moveNo);
+    noBtn.addEventListener("touchstart", moveNo);
 
 
-    // Enable click after 1 minute
+    // Enable after 1 min
     setTimeout(() => {
 
-      canClickNo = true;
+      canClick = true;
 
       noBtn.style.background = "#ff4b6e";
       noBtn.innerText = "No 😢💔 (Click Me)";
@@ -172,65 +107,21 @@
     }, 60000);
 
 
-    // Click handler
-    noBtn.addEventListener("click", (e) => {
+    // Click No
+    noBtn.addEventListener("click", () => {
 
-      // If early → escape
-      if (!canClickNo) {
+      if (!canClick) {
         moveNo();
         return;
       }
 
-      e.preventDefault();
-
-      const sure = confirm(
-        "😳 Are you REALLY sure?\n\n" +
-        "💔 My heart will break...\n" +
-        "🥺 Think again please...\n\n" +
-        "Press OK if you still want NO 😢"
-      );
-
-      if (sure) {
-
-        alert("😤 HOW DARE YOU 😭❤️\nGo back and choose YES 😍");
-
-        location.reload();
-      }
-
+      // Go to next page
+      window.location.href = "no.html";
     });
 
 
-    // YES button
-    function showLove() {
-
-      document.getElementById("question").style.display = "none";
-      document.getElementById("result").style.display = "block";
-
-      createHearts();
-    }
-
-
-    // Hearts animation
-    function createHearts() {
-
-      setInterval(() => {
-
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.innerHTML = "❤️";
-
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.fontSize = (20 + Math.random() * 20) + "px";
-        heart.style.animationDuration = (4 + Math.random() * 3) + "s";
-
-        document.body.appendChild(heart);
-
-        setTimeout(() => {
-          heart.remove();
-        }, 7000);
-
-      }, 300);
-
+    function goYes() {
+      alert("Yayyy 😍❤️ I Love Youuu 💞😘");
     }
 
   </script>
